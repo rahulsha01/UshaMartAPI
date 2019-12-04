@@ -33,4 +33,24 @@ class AddressController extends Controller
             $success['msg'] = "Successfully Addded Address";
             return response()->json(['success' => $success], $this->successStatus);
     }
+
+    function updateAddres(Request $request){
+        $validator = Validator::make($request->all(), [
+            'ad_id' => 'required',
+            'ad_u_id' => 'required',
+            'ad_addressLine1' => 'required',
+            'ad_addressLine2' => 'required',
+            'ad_state' => 'required',
+            'ad_city' => 'required',
+            'ad_pincode' => 'required'
+        ]);
+
+        $address = Address::find($request->ad_id);
+            dd($address);
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 401);
+        }
+    }
+
+
 }

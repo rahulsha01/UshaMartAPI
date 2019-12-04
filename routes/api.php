@@ -24,9 +24,12 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('authcheck', 'API\UserController@details');
     Route::post('getUser', 'API\UserController@getUser');
     Route::post('addAddress', 'AddressController@create');
+    Route::post('updateAddres' , 'AddressController@updateAddres');
     Route::post('getUserAddress', 'API\UserController@getUserAddress');
 });
 
+
+Route::get('createRole', 'API\UserController@createRole');
 
 
 

@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Address;
+use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Webpatser\Uuid\Uuid;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -22,8 +25,14 @@ class UserController extends Controller
     {
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
             $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-            return response()->json(['success' => $success], $this->successStatus);
+            if($user->u_role == 2) {
+                $success['token'] =  $user->createToken('MyApp', ['admin'])->accessToken;
+                return response()->json(['success' => $success], $this->successStatus);
+            }
+            else if($user->u_role == 1) {
+                $success['token'] =  $user->createToken('MyApp', ['user'])->accessToken;
+                return response()->json(['success' => $success], $this->successStatus);
+            }
         } else {
             return response()->json(['error' => 'Unauthorised'], 401);
         }
@@ -78,5 +87,12 @@ class UserController extends Controller
             'data' => $user,
             'statuscode'=> $this->successStatus
         ));
+    }
+
+    public function createRole()
+    {
+        //Role::create(['name'=> 'admin']);
+        Permission::create(['name'=> 'administrator']);
+        return response()->json(['msg' => 'Role created']);
     }
 }
