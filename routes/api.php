@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+// use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 
 use Webpatser\Uuid\Uuid;
 
@@ -14,12 +16,18 @@ use Webpatser\Uuid\Uuid;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
 Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
     Route::get('authcheck', 'API\UserController@details');
-    Route::post('/getUser', 'API\UserController@getUser');
+    Route::post('getUser', 'API\UserController@getUser');
+    Route::post('addAddress', 'AddressController@create');
+    Route::post('getUserAddress', 'API\UserController@getUserAddress');
 });
+
+
 
 
 

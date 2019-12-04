@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Address;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Webpatser\Uuid\Uuid;
@@ -68,5 +69,14 @@ class UserController extends Controller
          return response()->json(array(
              'data'=> $user
          ));
+    }
+
+    public function getUserAddress(Request $request)
+    {
+        $user = User::with(['addresses'])->where('u_id', $request->u_id)->get();
+        return response()->json(array(
+            'data' => $user,
+            'statuscode'=> $this->successStatus
+        ));
     }
 }
