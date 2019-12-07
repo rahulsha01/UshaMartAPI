@@ -17,18 +17,18 @@ use Webpatser\Uuid\Uuid;
 */
 
 
-Route::post('login', 'API\UserController@login');
-Route::post('register', 'API\UserController@register');
+Route::post('/login', 'API\UserController@login');
+Route::post('/register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::get('authcheck', 'API\UserController@details');
-    Route::post('getUser', 'API\UserController@getUser');
-    Route::post('addAddress', 'AddressController@create');
-    Route::post('updateAddres' , 'AddressController@updateAddres');
-    Route::post('getUserAddress', 'API\UserController@getUserAddress');
+    Route::get('/authcheck', 'API\UserController@details');
+    Route::post('/getUser', 'API\UserController@getUser');
+    Route::post('/addAddress', 'AddressController@create');
+    Route::post('/updateAddres' , 'AddressController@updateAddres');
+    Route::post('/getUserAddress', 'API\UserController@getUserAddress');
 });
 
 
-Route::get('createRole', 'API\UserController@createRole');
+Route::get('/createRole', 'API\UserController@createRole');
 
 
 
