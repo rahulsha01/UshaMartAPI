@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Webpatser\Uuid\Uuid;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -92,7 +93,12 @@ class UserController extends Controller
     public function createRole()
     {
         //Role::create(['name'=> 'admin']);
-        Permission::create(['name'=> 'administrator']);
-        return response()->json(['msg' => 'Role created']);
+        // Permission::create(['name'=> 'administrator']);
+        // return response()->json(['msg' => 'Role created']);
+        try {
+            dd(DB::connection());
+        } catch (\Exception $e) {
+            die("Could not connect to the database.  Please check your configuration. error:" . $e );
+        }
     }
 }
