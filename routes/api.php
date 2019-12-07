@@ -3,7 +3,6 @@
 use Illuminate\Http\Request;
 // use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
-
 use Webpatser\Uuid\Uuid;
 
 /*
@@ -30,6 +29,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 
 Route::get('createRole', 'API\UserController@createRole');
+
 
 
 
