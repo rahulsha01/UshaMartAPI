@@ -16,7 +16,7 @@ use Webpatser\Uuid\Uuid;
 |
 */
 
-
+Route::prefix('v1')->group(function () {
 Route::post('/login', 'API\UserController@login');
 Route::post('/register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 Route::get('/createRole', 'API\UserController@createRole');
 
-
+});
 
 
 
